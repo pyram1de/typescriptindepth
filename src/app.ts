@@ -10,9 +10,9 @@ function GetAllBooks() {
 
 function LogFirstAvailable(books){
     let numberOfBooks = books.length;
-
-    for (const currentBook of books) {
-        let firstAvailable = '';
+    let firstAvailable = '';
+    for (let currentBook of books) {
+        
         if(currentBook.available){
             firstAvailable = currentBook.title;
             break;
