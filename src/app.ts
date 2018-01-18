@@ -1,8 +1,9 @@
 function GetAllBooks() {
     let books = [
-        {title: 'test1', author: 'test1', available: true},
-        {title: 'test2', author: 'test2', available: true},
-        {title: 'test3', author: 'test3', available: true},
+        {title: 'Ulysses', author: 'James Joyce', available: true},
+        {title: 'A Farewell to Arms', author: 'Ernest Hemingway', available: true},
+        {title: 'I know Why the Caged Bird Sings', author: 'Maya Angelou', available: true},
+        {title: 'Moby Dick', author: 'Herman Melville', available: true}
     ]
 
     return books;
@@ -23,5 +24,6 @@ function LogFirstAvailable(books){
 }
 
 const allBooks = GetAllBooks();
+
 LogFirstAvailable(allBooks);
 
