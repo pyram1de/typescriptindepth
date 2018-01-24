@@ -1,37 +1,38 @@
-enum Category { Biography, Poetry, Fiction }
+import { Category } from './enums';
+import { Book, DamageLogger, Person, Author, Librarian } from './interfaces';
+import { UniversityLibrarian } from './classes'
 
-function GetAllBooks() {
+function GetAllBooks() : Book[] {
     let books = [
         {
             id: 1,
             title: 'Ulysses', 
             author: 'James Joyce', 
             available: true,
-            catergory: Category.Biography
+            category: Category.Biography
         },
         {
             id: 2,
             title: 'A Farewell to Arms', 
             author: 'Ernest Hemingway',
             available: false,
-            catergory: Category.Fiction
+            category: Category.Fiction
         },
         {
             id: 3,
             title: 'I know Why the Caged Bird Sings',
             author: 'Maya Angelou', 
             available: true,
-            catergory: Category.Fiction
+            category: Category.Fiction
         },
         {
             id: 4,
             title: 'Moby Dick',
             author: 'Herman Melville', 
             available: true,
-            catergory: Category.Fiction
+            category: Category.Fiction
         }
     ]
-
     return books;
 }
 
@@ -55,7 +56,7 @@ function GetBookTitlesByCategory(catergoryFilter: Category = Category.Biography)
     const allBooks = GetAllBooks();
     const filteredTitles: string[] = [];
     for(let currentBook of allBooks){
-        if(currentBook.catergory === catergoryFilter){
+        if(currentBook.category === catergoryFilter){
             filteredTitles.push(currentBook.title);
         }
     }
@@ -68,7 +69,7 @@ function LogBookTItles(titles: string[]): void {
     }
 }
 
-function GetBookByID(id: number){
+function GetBookByID(id: number) : Book {
     const allBooks = GetAllBooks();
     return allBooks.filter(book => book.id ===id)[0];
 }
@@ -131,28 +132,37 @@ function GetTitles(bookProperty: any): string[] {
     }
     return foundTitles;
 }
-
+/*
 console.log('unavailable titles: ');
 GetTitles(false).forEach(x=> console.log(x));
 console.log('titles by Ernest Hemingway:');
 GetTitles('Ernest Hemingway').forEach(x=> console.log(x));
-
-/*
-let fictionBooks = GetBookTitlesByCategory(Category.Fiction);
-fictionBooks.forEach((val, idx, arr)=> console.log(++idx + ' - ' + val));
-
-
-let x: number;
-let IdGenerator: (chars: string, nums: number) => string;
-
-IdGenerator =  (x,y) =>  'hello' ;
-  
-let myID : string = CreateCustomerId('daniel', 10);
-console.log(myID);
-
 */
+function PrintBook(book: Book): void {
+    console.log(book.title + ' by ' + book.author);
+}
 
-//const allBooks = GetAllBooks();
+let myBook: Book = {
+    id: 5,
+    title: 'Pride and Prejudice',
+    author: 'Jane Austin',
+    available: true,
+    category: Category.Fiction,
+    pages: 250,
+    markDamaged: (reason: string) => console.log('Damaged:' + reason)
+}
 
-//LogFirstAvailable(allBooks);
+PrintBook(myBook);
+myBook.markDamaged('torn pages.');
 
+let logDamage: DamageLogger;
+
+logDamage = (damage: string) => console.log('damage reported ' + damage);
+
+logDamage(' dave is damaged');
+
+let favoriteLibrarian: Librarian = new UniversityLibrarian();
+
+favoriteLibrarian.name = 'Sharon';
+
+favoriteLibrarian.assistCustomer('Lynda');
