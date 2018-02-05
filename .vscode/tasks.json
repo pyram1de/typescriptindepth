@@ -4,7 +4,7 @@
     "args": [
         "--no-color",
         "--module", "commonjs"
-    ],
+        ],
     "tasks": [
         {
             "label": "build",

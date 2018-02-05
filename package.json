@@ -4,12 +4,14 @@
   "description": "from pluralsight course",
   "main": "dist/app.js",
   "scripts": {
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "tsc": "tsc"
   },
   "author": "David Hulmes",
   "license": "ISC",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-shell": "^0.6.5",
     "gulp-sourcemaps": "^2.6.3",
     "gulp-typescript": "^4.0.0-alpha.1",
     "typescript": "^2.6.2"

@@ -1,8 +1,9 @@
 import { Category } from './enums';
-import { Book, Logger, Author, Librarian } from './interfaces';
+import { Book, Logger, Author, Librarian, Magazine } from './interfaces';
 import { UniversityLibrarian, ReferenceItem } from './classes';
-import { CalculateLateFee as CalcFee, MaxBooksAllowed } from './lib/utilityFunctions';
+import { CalculateLateFee as CalcFee, MaxBooksAllowed, Purge } from './lib/utilityFunctions';
 import Encyclopedia from './Encyclopedia';
+import Shelf from './shelf';
 
 let fee = CalcFee(3);
 let max = MaxBooksAllowed(12);
@@ -41,7 +42,7 @@ function GetAllBooks() : Book[] {
     return books;
 }
 
-function LogFirstAvailable(books): void {
+function LogFirstAvailable(books: Book[]): void {
     let numberOfBooks: number = books.length;
     let firstAvailable: string = '';
     for (let currentBook of books) {
@@ -160,7 +161,7 @@ let myBook: Book = {
 PrintBook(myBook);
 myBook.markDamaged('torn pages.');
 
-let logDamage: DamageLogger;
+let logDamage: Logger;
 
 logDamage = (damage: string) => console.log('damage reported ' + damage);
 
@@ -188,3 +189,67 @@ let Newspaper = class extends ReferenceItem {
 let mypaper = new Newspaper('the mirror', 2018);
 
 mypaper.printItem();
+
+let inventory = [
+    {
+        id: 1,
+        title: 'Ulysses', 
+        author: 'James Joyce', 
+        available: true,
+        category: Category.Biography
+    },
+    {
+        id: 2,
+        title: 'A Farewell to Arms', 
+        author: 'Ernest Hemingway',
+        available: false,
+        category: Category.Fiction
+    },
+    {
+        id: 3,
+        title: 'I know Why the Caged Bird Sings',
+        author: 'Maya Angelou', 
+        available: true,
+        category: Category.Fiction
+    },
+    {
+        id: 4,
+        title: 'Moby Dick',
+        author: 'Herman Melville', 
+        available: true,
+        category: Category.Fiction
+    }
+]
+
+
+console.log('books');
+inventory.forEach(book => console.log(book.title));
+
+let purgedBooks: Array<Book> = Purge<Book>(inventory);
+
+console.log('Purged Books');
+purgedBooks.forEach(book => console.log(book.title));
+
+
+let bookShelf: Shelf<Book> = new Shelf<Book>();
+
+inventory.forEach(book => bookShelf.add(book));
+
+let firstBook: Book = bookShelf.getFirst();
+
+let magazines: Array<Magazine> = [
+    { title: 'Programming Language Monthly', publisher: 'Code Mags' },
+    { title: 'Literary Fiction Quarterly', publisher: 'College Press'},
+    { title: 'Five Points', publisher: 'GSU'}
+];
+
+let magazineShelf: Shelf<Magazine> = new Shelf<Magazine>();
+
+magazines.forEach(mag => magazineShelf.add(mag));
+
+
+magazineShelf.printTitles();
+
+let softwareBook = bookShelf.find('Code Complete');
+
+let firstMagazine: Magazine = magazineShelf.getFirst();
