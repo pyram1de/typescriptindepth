@@ -5,6 +5,11 @@ import { CalculateLateFee as CalcFee, MaxBooksAllowed, Purge } from './lib/utili
 import Encyclopedia from './Encyclopedia';
 import Shelf from './shelf';
 
+import * as _ from "lodash";
+
+let snakeCaseTitle = _.snakeCase('For Whome the Bel Tolsl');
+console.log(snakeCaseTitle);
+
 let fee = CalcFee(3);
 let max = MaxBooksAllowed(12);
 
